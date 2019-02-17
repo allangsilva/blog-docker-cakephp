@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+  source-web:
+    image: busybox
+    container_name: 'container-src-web'
+    volumes:
+      - $PWD/src:/var/www/html
+
+  database:
+    image: mysql:5.6
+    container_name: 'container-db'
+    volumes:
+        - ./data/dump:/docker-entrypoint-initdb.d
+        - ./data/db:/var/lib/mysql
+    ports:
+      - "3380:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: blog
+      MYSQL_USER: blog
+      MYSQL_PASSWORD: blog
+
+  web:
+    image: container-web
+    build: ./docker/dev
+    container_name: 'container-web'
+    hostname: 'dev'
+    ports:
+      - "80:8080"
+    links:
+      - database
+    volumes_from:
+      - source-web
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    environment:
+      DB_HOST: database
+      DB_NAME: blog
+      DB_USER: blog
+      DB_PASS: blog

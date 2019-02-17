@@ -3,6 +3,9 @@
 run:
 	docker-compose up -d
 
+run-dev:
+	docker-compose -f docker-compose-dev.yml up -d
+
 restart: 
 	docker restart container-web
 
