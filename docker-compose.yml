@@ -16,12 +16,12 @@ services:
       MYSQL_PASSWORD: blog
 
   web:
-    image: container-web
+    image: drupal:8.6.9-apache
     build: ./
     container_name: 'container-web'
     hostname: 'dev'
     ports:
-      - "80:8080"
+      - "80:80"
     links:
       - database
     cap_add:

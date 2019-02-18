@@ -1,4 +1,4 @@
-FROM registrynatura.azurecr.io/drupal8.3
+FROM drupal:8.6.9-apache
 
 #copy files to www
 #mont dev

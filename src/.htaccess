@@ -12,4 +12,3 @@
     Header set Expires "Wed, 12 Jan 1980 05:00:00 GMT"
   </IfModule>
 </FilesMatch>
-Header set X-Frame-Options SAMEORIGIN
