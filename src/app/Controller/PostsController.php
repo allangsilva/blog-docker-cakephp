@@ -12,6 +12,20 @@ class PostsController extends AppController {
         $this->set('post', $this->Post->findById($id));
     }
 
+    public function isAuthorized($user) {
+        if (parent::isAuthorized($user)) {
+            if ($this->action === 'add') {
+                // Todos os usuários registrados podem criar posts
+                return true;
+            }
+            if (in_array($this->action, array('edit', 'delete'))) {
+                $postId = (int) $this->request->params['pass'][0];
+                return $this->Post->isOwnedBy($postId, $user['id']);
+            }
+        }
+        return false;
+    }
+
     public function add() {
         if ($this->request->is('post')) {
             if ($this->Post->save($this->request->data)) {
