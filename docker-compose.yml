@@ -1,12 +1,6 @@
 version: '2'
 
 services:
-  source-web:
-    image: busybox
-    container_name: 'container-src-web'
-    volumes:
-      - $PWD/src:/var/www/html
-
   database:
     image: mysql:5.6
     container_name: 'container-db'
@@ -23,15 +17,13 @@ services:
 
   web:
     image: container-web
-    build: ./docker/dev
+    build: ./
     container_name: 'container-web'
     hostname: 'dev'
     ports:
       - "80:8080"
     links:
       - database
-    volumes_from:
-      - source-web
     cap_add:
       - NET_ADMIN
       - SYS_ADMIN

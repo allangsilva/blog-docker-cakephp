@@ -6,8 +6,10 @@ COPY ./src /var/www/html
 COPY ./docker/php.ini /usr/local/etc/php/conf.d/
 
 #Log files to application
-RUN touch /var/www/html/app/tmp/logs/debug.log \
-  && touch /var/www/html/app/tmp/logs/error.log
+RUN mkdir /var/www/html/app/tmp
+RUN mkdir /var/www/html/app/tmp/logs
+RUN touch /var/www/html/app/tmp/logs/debug.log 
+RUN touch /var/www/html/app/tmp/logs/error.log
 
 RUN chown www-data:www-data -R /var/www/html/app/tmp
 RUN chmod u+rw,g+rw,o+rw -R /var/www/html/app/tmp
